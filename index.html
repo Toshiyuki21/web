@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PT.TELPP</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: #1abc4b;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar h1 {
+            color: #ecf0f1;
+            display: inline-block;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .navbar img {
+            vertical-align: middle;
+            width: 120px;
+            margin-left: 10px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            float: right;
+        }
+
+        .navbar ul li {
+            display: inline-block;
+            margin-left: 20px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: #ecf0f1;
+            padding: 10px 20px;
+            background-color: #34495e;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar ul li a:hover {
+            background-color: #1abc4b;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(to right, #ffffff, #ffffff);
+            color: white;
+        }
+
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+        }
+
+        /* Button styles */
+        #saveBtn, #deleteBtn {
+            padding: 10px 20px;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        #saveBtn {
+            background-color: #27ae60;
+            margin-right: 10px;
+        }
+
+        #deleteBtn {
+            background-color: #e74c3c;
+        }
+
+        #saveBtn:hover, #deleteBtn:hover {
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #1abc4b;
+            color: #ecf0f1;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Note section */
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        textarea {
+            width: 60%;
+            display: block;
+            margin: 0 auto;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #savedNote {
+            text-align: center;
+            margin-top: 10px;
+            color: #34495e;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar dengan logo di sebelah kanan nama -->
+    <nav class="navbar">
+        
+        <img src="logo_tel.png" alt="Logo PT TELPP">
+        <ul>
+            
+            <li><a href="input_data.php">Input Data</a></li>
+            <li><a href="search_data.php">Search Data</a></li>
+            <li><a href="scanner.php">Scanner</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div>
+            <h2>PT.TANJUNGENIM LESTARI</h2>
+            <p>PT Tanjungenim Lestari Pulp and Paper (TeL) is a world-class manufacturer of high product quality and environmentally friendly market pulp mill.</p>
+        </div>
+    </section>
+
+    <!-- Note Section -->
+    <h2>Catatan</h2>
+    <textarea id="note" rows="10" cols="30" placeholder="Tulis catatan Anda di sini..."></textarea><br><br>
+
+    <div class="button-container">
+        <button id="saveBtn" onclick="saveNote()">Simpan Catatan</button>
+        <button id="deleteBtn" onclick="deleteNote()">Hapus Catatan</button>
+    </div>
+
+    <p id="savedNote"></p>
+
+    <script>
+        // Fungsi untuk menyimpan catatan ke localStorage
+        function saveNote() {
+            var noteContent = document.getElementById('note').value;
+            localStorage.setItem('savedNote', noteContent); // Menyimpan catatan di localStorage
+            document.getElementById('savedNote').innerHTML = "Catatan tersimpan: " + noteContent;
+            alert("Catatan telah disimpan!");
+        }
+
+        // Fungsi untuk memuat catatan dari localStorage saat halaman di-load
+        function loadNote() {
+            var savedNote = localStorage.getItem('savedNote'); // Ambil catatan dari localStorage
+            if (savedNote) {
+                document.getElementById('note').value = savedNote;
+                document.getElementById('savedNote').innerHTML = "Catatan tersimpan: " + savedNote;
+            }
+        }
+
+        // Fungsi untuk menghapus catatan dari localStorage
+        function deleteNote() {
+            localStorage.removeItem('savedNote'); // Hapus catatan dari localStorage
+            document.getElementById('note').value = ""; // Mengosongkan textarea
+            document.getElementById('savedNote').innerHTML = ""; // Menghapus catatan yang ditampilkan
+            alert("Catatan telah dihapus!");
+        }
+
+        // Memuat catatan saat halaman dibuka
+        window.onload = loadNote;
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <p>Copyright 2024 PT TELPP. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
